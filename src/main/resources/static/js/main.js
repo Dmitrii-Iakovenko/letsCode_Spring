@@ -55,7 +55,7 @@ Vue.component('message-form', {
 });
 
 Vue.component('message-row', {
-    props: ['message', 'editMethod', 'messages'],
+    props: ['message', 'editMethod', 'delMethod'],
     template:
         '<div>' +
             '<i>({{ message.id }})</i> {{ message.text }}' +
@@ -69,11 +69,7 @@ Vue.component('message-row', {
             this.editMethod(this.message);
         },
         del: function () {
-            messageApi.remove({id: this.message.id}).then(response => {
-                if (response.ok) {
-                    this.messages.splice(this.messages.indexOf(this.message), 1);
-                }
-            })
+            this.delMethod(this.message);
         }
     }
 });
@@ -90,7 +86,7 @@ Vue.component('messages-list', {
         '<div style="position: relative; width: 300px;">' +
             '<message-form :messages="messages" :messageAttr="message" />' +
             '<message-row v-for="message in messages" :key="message.id" :message="message"' +
-                ':editMethod="editMethod" :messages="messages"></message-row>' +
+                ' :editMethod="editMethod" :delMethod="delMethod"></message-row>' +
         '</div>',
     created: function () {
         messageApi.get().then(result =>
@@ -102,6 +98,13 @@ Vue.component('messages-list', {
     methods: {
         editMethod: function (message) {
             this.message = message;
+        },
+        delMethod: function (message) {
+            messageApi.remove({id: message.id}).then(response => {
+                if (response.ok) {
+                    this.messages.splice(this.messages.indexOf(message), 1);
+                }
+            })
         }
     }
 });
