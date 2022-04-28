@@ -14,15 +14,16 @@ import java.time.LocalDateTime;
 @EnableWebSecurity
 @EnableOAuth2Sso
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .antMatcher("/**")
             .authorizeRequests()
-            .mvcMatchers("/").permitAll()
-            .mvcMatchers("/login").permitAll()
+            .antMatchers("/", "/login**", "/js/**", "/error**").permitAll()
             .anyRequest().authenticated()
-            .and().csrf().disable();
+            .and().logout().logoutSuccessUrl("/").permitAll()
+            .and()
+            .csrf().disable();
     }
 
     @Bean

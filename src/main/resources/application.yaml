@@ -9,11 +9,18 @@ spring:
     properties:
       hibernate.jdbc.lob.non_cuntextual_creation: true
 
+  session:
+    jdbc:
+      initialize-schema: always
+      table-name: SPRING_SESSION
+      schema: classpath:session_tables.sql
+
+
 security:
   oauth2:
     client:
-      clientId: ---
-      clientSecret: ---
+      clientId: 300816401957-rbvmlvrhh4bs29jh52t0ogcfsr14jgf9.apps.googleusercontent.com
+      clientSecret: ${clientSecret}
       accessTokenUri: https://www.googleapis.com/oauth2/v4/token
       userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
       clientAuthenticationScheme: form
