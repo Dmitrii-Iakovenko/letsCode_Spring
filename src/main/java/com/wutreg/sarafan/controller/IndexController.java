@@ -3,6 +3,7 @@ package com.wutreg.sarafan.controller;
 import com.wutreg.sarafan.entity.User;
 import com.wutreg.sarafan.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,9 @@ public class IndexController {
 
     private final MessageRepository messageRepository;
 
+    @Value("${spring.profiles.active}")
+    private String profile;
+
     @Autowired
     public IndexController(MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
@@ -30,6 +34,7 @@ public class IndexController {
         data.put("messages", messageRepository.findAll());
 
         model.addAttribute("frontendData", data);
+        model.addAttribute("isDevMode", "dev".equals(profile));
 
         return "index";
     }

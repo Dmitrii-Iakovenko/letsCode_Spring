@@ -16,3 +16,9 @@ vue-resource:
 https://github.com/pagekit/vue-resource
 
 
+Idea:
+* добавить плагин Vue.js 
+
+Chrome:
+* добавить https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd
+

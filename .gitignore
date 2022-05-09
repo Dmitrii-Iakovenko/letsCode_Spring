@@ -36,3 +36,9 @@ out/
 ### VS Code ###
 .vscode/
 /gradle/
+
+
+### NPM & YARN ###
+.yarn
+yarn.lock
+node_modules/
